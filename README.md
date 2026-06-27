@@ -4,7 +4,7 @@
 
 Soccer Arcana is an explainable AI experience built for global football fans. Describe any match moment (a nutmeg, a VAR call, a late collapse) and the system draws a symbolic card from a twelve card Arcana deck, then explains what happened in plain language: metaphor, tactics, culture, and emotion.
 
-Built for the [IBM Bob Hackathon](https://lablab.ai/ai-hackathons/ibm-bob-hackathon) and the World Cup 2026 context, Soccer Arcana shows how IBM's AI stack can make complex football moments accessible to everyone watching the world's biggest tournament.
+Built for the World Cup 2026 context, Soccer Arcana shows how IBM Granite on watsonx.ai can make complex football moments accessible to everyone watching the world's biggest tournament.
 
 ---
 
@@ -13,13 +13,12 @@ Built for the [IBM Bob Hackathon](https://lablab.ai/ai-hackathons/ibm-bob-hackat
 - [The Problem](#the-problem)
 - [Why Soccer Arcana Matters](#why-soccer-arcana-matters)
 - [Architecture](#architecture)
-- [IBM Tools & How They Work Together](#ibm-tools--how-they-work-together)
+- [IBM Granite (watsonx.ai)](#ibm-granite-watsonxai)
 - [The Arcana Pipeline](#the-arcana-pipeline)
 - [The Deck](#the-deck)
 - [Getting Started](#getting-started)
 - [API Reference](#api-reference)
 - [Project Structure](#project-structure)
-- [Development with IBM Bob](#development-with-ibm-bob)
 - [License](#license)
 
 ---
@@ -79,117 +78,50 @@ Fans see not just *what* the AI said, but *how* it arrived there: card name, sel
 
 ## Architecture
 
-Soccer Arcana is organized in four layers:
+Soccer Arcana has three parts: a static web frontend, a FastAPI backend, and IBM Granite on watsonx.ai for inference. Card metadata in `arcana/cards.py` grounds each reading in predefined tactical, cultural, and emotional meanings.
 
 ```mermaid
 flowchart TB
-    subgraph Frontend["Frontend: Fan Experience"]
+    subgraph Frontend["Frontend"]
         UI["Static web UI<br/>(HTML / CSS / JS)"]
         Deck["Arcana Deck<br/>(12 cards + artwork)"]
     end
 
-    subgraph Backend["Backend: FastAPI"]
+    subgraph Backend["Backend (FastAPI)"]
         API["/arcana endpoint"]
-        Pipeline["Arcana Pipeline<br/>(3 stage orchestration)"]
-        Schema["Pydantic schema<br/>validation"]
-    end
-
-    subgraph Orchestration["Orchestration Layer"]
-        LF["LangFlow<br/>(visual agent flows)"]
-        WXO["watsonx Orchestrate<br/>(optional multi agent)"]
-    end
-
-    subgraph Knowledge["Knowledge Layer"]
-        CF["Context Forge<br/>(structured context)"]
-        DL["Docling<br/>(document ingestion)"]
-        Cards["Arcana card metadata<br/>(tactical · cultural · emotional)"]
-        RAG["Tactical & cultural<br/>knowledge base"]
+        Pipeline["Arcana Pipeline<br/>(3 stage)"]
+        Schema["Pydantic validation"]
+        Cards["Card metadata<br/>(arcana/cards.py)"]
     end
 
     subgraph Inference["Inference"]
         Granite["IBM Granite<br/>(watsonx.ai)"]
     end
 
-    subgraph Dev["Development"]
-        Bob["IBM Bob<br/>(AI development partner)"]
-    end
-
     UI -->|POST /arcana| API
     API --> Pipeline
     Pipeline --> Schema
-    Pipeline --> Granite
     Pipeline --> Cards
-    DL --> RAG
-    RAG --> CF
-    Cards --> CF
-    CF --> Pipeline
-    LF -.->|prototype / extend| Pipeline
-    WXO -.->|optional deploy| API
-    Bob -.->|built & maintains| Backend
-    Bob -.->|built & maintains| Frontend
+    Pipeline --> Granite
 ```
 
-### Layer summary
+### Components
 
-| Layer | Role in Soccer Arcana | Implementation in this repo |
-|-------|----------------------|-----------------------------|
-| **Frontend** | Consult box, card reveal modal, full deck browser | `static/` (vanilla JS, no build step) |
+| Component | Role | Location |
+|-----------|------|----------|
+| **Frontend** | Consult box, card reveal modal, full deck browser | `static/` |
 | **Backend** | REST API, pipeline execution, error handling | `main.py`, `routes/`, `arcana/` |
-| **Orchestration** | Multi step agent flows, visual prototyping, optional cloud deploy | Python pipeline today; LangFlow / watsonx Orchestrate as extension path |
-| **Knowledge** | Card archetypes, tactical glossaries, ingested World Cup & football documents | `arcana/cards.py`, `static/deck.js`; Docling + Context Forge for expanded RAG |
-| **Inference** | Classification, card selection, explanation generation | `granite_client.py` → IBM Granite on watsonx.ai |
+| **Card metadata** | Archetypes with tactical, cultural, and emotional meanings | `arcana/cards.py`, `static/deck.js` |
+| **Inference** | Classification, card selection, explanation generation | `granite_client.py` via watsonx.ai |
 
 ---
 
-## IBM Tools & How They Work Together
+## IBM Granite (watsonx.ai)
 
-Soccer Arcana is powered by IBM's AI and development stack. Each tool plays a distinct role; together they move from raw football knowledge to a fan facing reading in seconds.
-
-### IBM Granite (watsonx.ai)
-
-**Role:** Inference engine, the model that *thinks* about each moment.
-
-Granite runs the three stage Arcana pipeline: classify the moment, select the best card, and generate a structured explanation. Responses are constrained to JSON schemas so outputs are parseable, validatable, and inspectable.
+Granite is the inference engine behind every reading. It runs the three stage Arcana pipeline: classify the moment, select the best card, and generate a structured explanation. Responses are constrained to JSON schemas so outputs are parseable, validatable, and inspectable.
 
 - **Model:** `ibm/granite-3-8b-instruct` (configurable via `WATSONX_MODEL_ID`)
 - **Client:** `granite_client.py` wraps the watsonx.ai SDK with tuned generation parameters (temperature, top k, max tokens) balanced for creative metaphor with reliable JSON.
-
-### LangFlow
-
-**Role:** Orchestration layer, visual design and prototyping of multi step agent flows.
-
-LangFlow lets you compose the classify → select → explain workflow as a visual graph, connect Docling powered document loaders, and experiment with prompt chains before hardening them in Python. Flows built in LangFlow can be exported or wrapped as tools for watsonx Orchestrate.
-
-In this repository, the production pipeline is implemented in `arcana/pipeline.py`. LangFlow is the recommended environment for extending the pipeline, for example adding a retrieval step before classification or branching on confidence thresholds.
-
-### Docling
-
-**Role:** Knowledge ingestion, turning messy football documents into clean, AI ready text.
-
-Docling parses PDFs, match reports, tactical primers, and World Cup histories into structured Markdown. That content feeds the knowledge layer so Granite's explanations can ground in real tactical writing and cultural narrative, not just parametric memory.
-
-Example sources for ingestion:
-
-- FIFA / federation tactical guides
-- Match reports and postgame analysis
-- Historical World Cup moment write ups
-- Curated cultural football essays
-
-### Context Forge
-
-**Role:** Knowledge assembly, structured context blueprints for the AI pipeline.
-
-Context Forge organizes ingested documents, card metadata, and moment specific signals into deterministic context packages passed to Granite at each pipeline stage. Instead of stuffing entire documents into a prompt, Context Forge selects the relevant card definitions, tactical snippets, and cultural notes for the moment at hand, improving accuracy and reducing token waste.
-
-The Arcana deck metadata in `arcana/cards.py` is the seed of this layer; Context Forge scales it with dynamic retrieval as the knowledge base grows.
-
-### IBM Bob
-
-**Role:** Development partner, the AI that built and maintains Soccer Arcana.
-
-IBM Bob is the intelligent development environment used to design the pipeline, generate prompts, scaffold the FastAPI backend, build the frontend, and write tests. Bob reads full repository context, not isolated snippets, so changes stay consistent across `arcana/`, `routes/`, and `static/`.
-
-For hackathon submissions, export your Bob IDE task session reports and include them in this repository so judges can see how Bob accelerated development.
 
 ### How a reading flows end to end
 
@@ -207,10 +139,8 @@ Fan describes moment
 └─────────┬─────────┘
           │
           ▼
-┌───────────────────┐     ┌─────────────────┐
-│ Context Forge     │◄────│ Docling corpus  │
-│ (card + retrieved │     │ (tactical docs) │
-│  context)         │     └─────────────────┘
+┌───────────────────┐
+│  Card metadata    │  Deck definitions from arcana/cards.py
 └─────────┬─────────┘
           │
           ▼
@@ -415,19 +345,6 @@ Soccer-Arcana/
 │   └── cards/              # Card artwork (PNG)
 └── tests/                  # Pipeline and prompt tests
 ```
-
----
-
-## Development with IBM Bob
-
-Soccer Arcana was developed with **IBM Bob** as the primary AI development partner:
-
-- **Pipeline design:** Bob scaffolded the three stage classify → select → explain flow with schema validation.
-- **Prompt engineering:** Stage prompts in `arcana/prompts/` were iterated with Bob to balance JSON reliability and creative readings.
-- **Full stack implementation:** Backend routes, frontend reveal modal, and deck browser were built with repository aware assistance.
-- **Testing:** End to end pipeline tests with mocked Granite responses.
-
-If you extend this project with Bob, export your task session reports from Bob IDE and add them to a `bob-reports/` directory in this repository for hackathon judging.
 
 ---
 
