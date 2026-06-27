@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Soccer Arcana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav">
+    <div class="logo">SOCCER&nbsp;ARCANA</div>
+    <div class="nav-links">
+      <button id="nav-deck-btn" class="nav-btn">The Deck</button>
+      <span class="nav-muted">Journal</span>
+    </div>
+    <div class="nav-icon">◐</div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="badge">TACTICAL&nbsp;ENLIGHTENMENT</div>
+      <h1>The Pitch is the <span>Portal</span></h1>
+      <p>Where spatial data meets esoteric wisdom. Every match is a reading, every goal a revelation — consult the cards of the beautiful game.</p>
+      <div class="consult-box">
+        <span style="color:#E0B24A;font-size:14px;">✦</span>
+        <input id="query-input" type="text" placeholder="Consult the Arcana — 'the 94th-minute collapse of Inter…'" />
+        <button id="draw-btn" class="draw-btn">Draw&nbsp;⬠</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <div>
+        <h2>Daily Readings</h2>
+        <p class="section-sub">The latest omens from the global stage.</p>
+      </div>
+      <button id="view-deck-btn" class="link-btn">VIEW&nbsp;FULL&nbsp;DECK&nbsp;→</button>
+    </div>
+    <div class="grid-3">
+      <div data-reveal>
+        <article class="reading-card">
+          <div style="display:flex;align-items:center;gap:8px;padding:13px 14px 11px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.08em;">
+            <span style="border:1px solid rgba(224,178,74,0.5);color:#E0B24A;padding:3px 7px;border-radius:2px;">MAJOR ARCANA</span>
+            <span style="color:#7C745F;">MATCH ID · #WC26-01</span>
+          </div>
+          <div style="background:#0B0905;padding:0 14px;"><img src="/static/cards/tower.png" alt="The Tower" style="width:100%;display:block;border-radius:4px;"></div>
+          <div style="padding:14px 16px 17px;margin-top:13px;border-top:1px solid rgba(201,164,76,0.18);">
+            <div style="display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:0.06em;margin-bottom:10px;"><span style="color:#E0B24A;">90+3′ STALL</span><span style="color:#E0B24A;">xG SWING: 2.1</span></div>
+            <p style="font-style:italic;font-size:15px;line-height:1.5;margin:0;color:#9E957E;">A sudden structural collapse. The high line disintegrated under vertical pressure, mirroring the hubris of the falling spire.</p>
+          </div>
+        </article>
+      </div>
+      <div data-reveal>
+        <article class="reading-card">
+          <div style="display:flex;align-items:center;gap:8px;padding:13px 14px 11px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.08em;">
+            <span style="border:1px solid rgba(224,178,74,0.5);color:#E0B24A;padding:3px 7px;border-radius:2px;">MAJOR ARCANA</span>
+            <span style="color:#7C745F;">MATCH ID · #WC26-22</span>
+          </div>
+          <div style="background:#0B0905;padding:0 14px;"><img src="/static/cards/catalyst.png" alt="The Catalyst" style="width:100%;display:block;border-radius:4px;"></div>
+          <div style="padding:14px 16px 17px;margin-top:13px;border-top:1px solid rgba(201,164,76,0.18);">
+            <div style="display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:0.06em;margin-bottom:10px;"><span style="color:#E0B24A;">THE CATALYST</span><span style="color:#E0B24A;">KEY PASS: 0.94</span></div>
+            <p style="font-style:italic;font-size:15px;line-height:1.5;margin:0;color:#9E957E;">One strike changes everything. A boot meets the ball and the whole match tilts — the spark that rewrites momentum in an instant.</p>
+          </div>
+        </article>
+      </div>
+      <div data-reveal>
+        <article class="reading-card">
+          <div style="display:flex;align-items:center;gap:8px;padding:13px 14px 11px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.08em;">
+            <span style="border:1px solid rgba(224,178,74,0.5);color:#E0B24A;padding:3px 7px;border-radius:2px;">MAJOR ARCANA</span>
+            <span style="color:#7C745F;">MATCH ID · #WC26-44</span>
+          </div>
+          <div style="background:#0B0905;padding:0 14px;"><img src="/static/cards/surge.png" alt="The Surge" style="width:100%;display:block;border-radius:4px;"></div>
+          <div style="padding:14px 16px 17px;margin-top:13px;border-top:1px solid rgba(201,164,76,0.18);">
+            <div style="display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:0.06em;margin-bottom:10px;"><span style="color:#E0B24A;">SUSTAINED PRESS</span><span style="color:#E0B24A;">INTENSITY: 340</span></div>
+            <p style="font-style:italic;font-size:15px;line-height:1.5;margin:0;color:#9E957E;">Relentless momentum. Wave upon wave pinned the opponent in their box until the weather itself decided the game.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="border-top:1px solid #1B1812;background:radial-gradient(ellipse at 80% 0%,rgba(224,178,74,0.05),transparent 50%);padding:72px 40px;">
+    <div style="max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;">
+      <div>
+        <h2>The <span style="color:#E0B24A;">Arcana</span> Philosophy</h2>
+        <p style="font-size:17px;line-height:1.6;margin:0 0 34px;color:#9E957E;max-width:440px;">We believe football is more than a game of numbers. It is a shared human ritual where patterns repeat across centuries — and we use AI to decode those patterns into the language of the Arcana.</p>
+      </div>
+      <div style="border:1px solid #241F15;border-radius:8px;background:#0C0A07;padding:26px;">
+        <div style="height:3px;background:#1C1810;border-radius:2px;overflow:hidden;position:relative;">
+          <div style="position:absolute;top:0;left:0;width:30%;height:100%;background:linear-gradient(90deg,transparent,#E0B24A,transparent);animation:arcBar 2.4s ease-in-out infinite;"></div>
+        </div>
+        <div style="font-family:'Space Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:#857C68;margin-top:10px;text-align:center;">SYNCHRONIZING&nbsp;TACTICAL&nbsp;DATA…</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-top:1px solid #1B1812;text-align:center;padding:80px 24px;">
+    <h2 style="font-weight:600;font-size:clamp(32px,5vw,44px);margin:0;color:#EFE6CD;">Ready for your reading?</h2>
+    <p style="font-size:17px;line-height:1.6;max-width:440px;margin:18px auto 0;color:#9E957E;">Enter any match moment, player season, or tactical trend, and the deck will reveal its Arcana.</p>
+    <button id="cta-deck-btn" style="margin-top:32px;font-family:'Cinzel',serif;font-weight:600;font-size:14px;letter-spacing:0.16em;background:linear-gradient(180deg,#E8C76A,#D4A537);border:none;color:#1A1306;border-radius:5px;padding:16px 40px;cursor:pointer;">OPEN&nbsp;THE&nbsp;DECK</button>
+  </section>
+
+  <footer style="border-top:1px solid #1B1812;padding:34px 40px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:18px;max-width:1180px;margin:0 auto;">
+    <div>
+      <div class="logo" style="margin-bottom:10px;">SOCCER&nbsp;ARCANA</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;line-height:1.7;color:#6F6754;max-width:280px;">© 2026 Soccer Arcana · World Cup Edition. Wisdom through tactics; every match moment interpreted through the Arcana AI engine.</div>
+    </div>
+  </footer>
+
+  <!-- REVEAL MODAL -->
+  <div id="reveal-modal" class="modal-backdrop">
+    <div class="modal">
+      <button id="close-reveal-btn" class="modal-close">✕</button>
+      <div id="loading-panel" class="loading hidden">
+        <span class="spinner"></span>
+        <span style="font-style:italic;font-size:19px;color:#9E957E;">The cards are reading the pitch…</span>
+      </div>
+      <div id="card-panel" class="reveal-grid hidden">
+        <div style="justify-self:center;perspective:1300px;">
+          <article style="width:264px;border-radius:13px;padding:13px;background:linear-gradient(160deg,#1A1408,#0C0A06);border:1px solid #C9A44C;animation:arcFlipIn 0.85s cubic-bezier(.2,.8,.2,1) both, arcGildPulse 4s ease-in-out 1s infinite;">
+            <div style="border:1px solid rgba(201,164,76,0.5);border-radius:8px;padding:13px;text-align:center;">
+              <div style="font-family:'Cinzel',serif;font-size:16px;letter-spacing:0.18em;color:#E0B24A;margin-bottom:13px;"><span style="font-size:9px;color:rgba(224,178,74,0.7);">★</span> <span id="card-roman"></span> <span style="font-size:9px;color:rgba(224,178,74,0.7);">★</span></div>
+              <div style="border-radius:5px;overflow:hidden;box-shadow:0 6px 22px rgba(0,0,0,0.5);"><img id="card-img" src="" alt="" style="width:100%;display:block;"></div>
+              <div id="card-archetype" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.15em;color:#9A8C5E;margin-top:14px;text-transform:uppercase;"></div>
+            </div>
+          </article>
+        </div>
+        <div style="animation:arcSlideUp 0.6s cubic-bezier(.2,.7,.2,1) 0.25s both;">
+          <div style="display:flex;align-items:center;gap:11px;margin-bottom:9px;flex-wrap:wrap;">
+            <span id="source-badge" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.16em;color:#E0B24A;"></span>
+            <span id="query-echo" style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.05em;color:#6F6754;"></span>
+          </div>
+          <p id="card-reading" style="font-style:italic;font-weight:500;font-size:27px;line-height:1.36;margin:0 0 26px;color:#EFE6CD;border-bottom:1px solid #221E15;padding-bottom:24px;"></p>
+          <div style="display:flex;flex-direction:column;gap:22px;">
+            <div><div style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:0.18em;color:#E0B24A;margin-bottom:7px;">⚔&nbsp;&nbsp;TACTICAL TRUTH</div><p id="card-tactical" style="font-size:18px;line-height:1.55;margin:0;color:#B9AF95;"></p></div>
+            <div><div style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:0.18em;color:#E0B24A;margin-bottom:7px;">◷&nbsp;&nbsp;CULTURAL LENS</div><p id="card-cultural" style="font-size:18px;line-height:1.55;margin:0;color:#B9AF95;"></p></div>
+            <div><div style="font-family:'Space Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:0.18em;color:#E0B24A;margin-bottom:7px;">❍&nbsp;&nbsp;EMOTIONAL CURRENT</div><p id="card-emotional" style="font-size:18px;line-height:1.55;margin:0;color:#B9AF95;"></p></div>
+          </div>
+          <button id="draw-another-btn" class="draw-btn" style="margin-top:28px;">DRAW ANOTHER ⬠</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FULL DECK -->
+  <div id="deck-modal" class="deck-backdrop">
+    <div class="deck-inner" style="max-width:1180px;margin:0 auto;position:relative;">
+      <button id="close-deck-btn" class="modal-close" style="position:fixed;top:22px;right:26px;z-index:2;">✕</button>
+      <div style="text-align:center;margin-bottom:40px;">
+        <div class="badge">THE&nbsp;MAJOR&nbsp;ARCANA&nbsp;·&nbsp;XII</div>
+        <h2 style="font-style:italic;font-weight:500;font-size:clamp(34px,5vw,52px);margin:0;color:#EFE6CD;">The Full Deck</h2>
+        <p style="font-size:16px;line-height:1.6;max-width:480px;margin:14px auto 0;color:#9E957E;">Twelve archetypes of the beautiful game — choose a card to read its omen.</p>
+      </div>
+      <div id="deck-grid" class="deck-grid"></div>
+    </div>
+  </div>
+
+</div>
+<script type="module" src="/static/app.js"></script>
+</body>
+</html>
